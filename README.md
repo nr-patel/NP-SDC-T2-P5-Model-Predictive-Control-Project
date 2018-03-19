@@ -86,6 +86,8 @@ The time `T=N dt` defines the prediction horizon. Short prediction horizons lead
 Here I chose values of `N` and `dt` such that drives the car smoothly around the track for slow velocities of about 25mph all the way up to about 70mph. 
 The values are `N=12` and `dt=0.05`.  Note that the `100ms = 2*dt` latency imply that the controls of the first two time steps are not used in the optimization. They are frozen to the values of the previous actuations, like so 
 
+The number of points `(N)` and the time interval `(dt)` define the prediction horizon. The number of points impacts the controller performance as well. I tried to keep the horizon around the same time the waypoints were on the simulator. With too many points the controller starts to run slower, and some times it went wild very easily. After trying with `N` from 10 to 20 and dt 0.01 to 0.05 milliseconds, I decided to leave them fixed to 12 and 0.05 to have a better result tuning the other parameters. I originally was using values of 15 for `N` and 0.2 for `dt`. However, I found 0.2 to be way too slow to react, plus I began accounting for latency in the main.cpp file.
+
 ### Cost Function Parameters
 The cost of a trajectory of length N is computed as follows
 ```
